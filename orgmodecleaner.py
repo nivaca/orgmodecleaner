@@ -1,14 +1,14 @@
 import os
 import re
 
-directory = ''  # local directory
-extensions = ['.org']
-makebackup = True
-simulate = False
+directory: str = ''  # local directory
+extensions: list[str] = ['.org']
+makebackup: bool = True
+simulate: bool = False
 
 
 def get_files():
-    files = []
+    files: list[str] = []
     allfilenames = os.listdir(directory + '.')
     for fi in allfilenames:
         ext = os.path.splitext(fi)[1]
@@ -23,7 +23,7 @@ def removemultiplelines(fn):
     changed = False
     with open(fn) as orig:
         out = orig.read()
-        patternlist = [
+        patternlist: list[tuple[str, str]] = [
             (r' +\n', r'\n'),
             (r'\n{3,}', r'\n\n'),
             (r'\n{2,}$', r'\n')
@@ -147,7 +147,7 @@ def fixheadings(fn):
 
 
 def main():
-    files = get_files()
+    files: list[str] = get_files()
     count = 0
     for fn in files:
         if metatitle(fn):
