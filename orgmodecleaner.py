@@ -7,7 +7,7 @@ makebackup: bool = True
 simulate: bool = False
 
 
-def get_files():
+def get_files() -> list[str]:
     files: list[str] = []
     allfilenames = os.listdir(directory + '.')
     for fi in allfilenames:
@@ -19,7 +19,7 @@ def get_files():
     return files
 
 
-def removemultiplelines(fn):
+def removemultiplelines(fn: str) -> bool:
     changed = False
     with open(fn) as orig:
         out = orig.read()
@@ -47,7 +47,7 @@ def removemultiplelines(fn):
         return True
 
 
-def hastitletag(fn):
+def hastitletag(fn: str) -> bool:
     with open(fn) as file:
         data = file.read()
         basetitle = r' *\#\+title: *'
@@ -57,7 +57,7 @@ def hastitletag(fn):
             return True
 
 
-def hastitle(fn):
+def hastitle(fn: str) -> bool:
     with open(fn) as file:
         data = file.read()
         basetitle = r' *\#\+title: *'
@@ -68,7 +68,7 @@ def hastitle(fn):
             return True
 
 
-def capableofgettingtitle(fn):
+def capableofgettingtitle(fn: str) -> bool:
     with open(fn) as file:
         data = file.read()
         basetitle = r' *\#\+title: *'
@@ -79,7 +79,7 @@ def capableofgettingtitle(fn):
             return False
 
 
-def getnewtitle(fn):
+def getnewtitle(fn: str) -> bool:
     with open(fn) as orig:
         data = orig.read()
         pattern = r'( *\#\+title:) *\s*\#{1}'
@@ -95,7 +95,7 @@ def getnewtitle(fn):
         return True
 
 
-def metatitle(fn):
+def metatitle(fn: str) -> bool:
     if hastitletag(fn):
         if not hastitle(fn):
             if capableofgettingtitle(fn):
@@ -104,7 +104,7 @@ def metatitle(fn):
                     return True
 
 
-def containshashheadings(fn):
+def containshashheadings(fn: str) -> bool:
     with open(fn) as orig:
         data = orig.read()
         pattern = r'\n *\#{1,6} *\w'
@@ -115,7 +115,7 @@ def containshashheadings(fn):
             return False
 
 
-def fixheadings(fn):
+def fixheadings(fn: str) -> bool:
     with open(fn) as orig:
         lines = orig.readlines()
         tmpfn = f'{fn}.tmp'
